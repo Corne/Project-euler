@@ -18,5 +18,4 @@ public class AssignmentFour {
     public Long findLargestPalindrome(int digits){
         return PalinDromeUtil.findFactorPalinDromes(digits).last();
     }
-    
 }

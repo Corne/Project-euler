@@ -38,7 +38,7 @@ import java.util.List;
 public class AssignmentEight {
 
     /**
-     *
+     * 
      * @param sequence
      * @param consecutiveDigits
      * @return
@@ -52,12 +52,11 @@ public class AssignmentEight {
             Long product = subList.stream().reduce(1L, (n1, n2) -> n1 * n2);
             maxProduct = product > maxProduct ? product : maxProduct;
         }
-        
-        
+               
         return maxProduct;
     }
     
-    //todo refactor,
+    //todo move to list util
     private List<Long> getAllDigits(String str){
         List<Long> digits = new ArrayList<>();
         for(int i=0; i<str.length(); i++){
