@@ -33,4 +33,15 @@ public class PythagoreanTest {
         assertEquals(expResult, result);
     }
     
+    @Test
+    public void testGetPythagoreanTripletForSum() {
+        int expectedA = 3;
+        int expectedB = 4;
+        int expectedC = 5;
+        PythagoreanTriplet result = Pythagorean.getPythagoreanTripletForSum(12);
+        assertEquals(expectedA, result.getA());
+        assertEquals(expectedB, result.getB());
+        assertEquals(expectedC, result.getC());
+    }
+    
 }

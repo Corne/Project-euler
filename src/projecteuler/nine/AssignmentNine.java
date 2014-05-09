@@ -25,20 +25,8 @@ public class AssignmentNine {
      * @return product of the triplet
      */
     public int getPythagoreanTripletProductForSum(int sum) {
-        //really ugly code, todo fix, make more OO solution
-        int b=sum;
-        for(int a=1; a<b; a++){
-            b = a+1;
-            int c = sum-a-b;
-            for(;b < c; b++){
-                if(Pythagorean.isPythagoreanTriplet(a, b, c)){
-                    return a*b*c;
-                }
-                c--;
-            }
-        }
-        
-        return 0;
+        PythagoreanTriplet triplet = Pythagorean.getPythagoreanTripletForSum(sum);
+        return triplet.getA() * triplet.getB() * triplet.getC();
     }
 
 }
