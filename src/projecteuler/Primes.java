@@ -50,6 +50,13 @@ public class Primes {
             return getPrime(index);
         }
     }
+    //todo check if we can improve performance
+    public List<Long> getPrimesBelowValue(long value){
+        while(this.primes.get(this.primes.size() -1) < value){
+            primes.add(findNextPrime());
+        }
+        return primes.subList(0, primes.size() - 1); //last one is over value
+    }
     
     private long findNextPrime() {
         long startIndex = primes.get(primes.size() - 1);

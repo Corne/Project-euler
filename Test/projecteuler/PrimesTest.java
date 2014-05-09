@@ -6,6 +6,7 @@
 package projecteuler;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
 import static org.junit.Assert.assertEquals;
@@ -15,9 +16,9 @@ import org.junit.Test;
  *
  * @author Corne
  */
-public class PrimeUtilTest {
+public class PrimesTest {
 
-    public PrimeUtilTest() {
+    public PrimesTest() {
     }
 
     /**
@@ -40,5 +41,16 @@ public class PrimeUtilTest {
         long result = primes.getPrime(index);
         
         assertEquals(expexted, result);
+    }
+    
+    @Test
+    public void testGetPrimesBelowValue() {
+        //2 + 3 + 5 + 7
+        long input = 10;
+        List<Long> expected =  Arrays.asList(2L, 3L, 5L, 7L);
+        Primes primes = new Primes();
+        List<Long> result = primes.getPrimesBelowValue(input);
+        
+        assertEquals(expected, result);
     }
 }
