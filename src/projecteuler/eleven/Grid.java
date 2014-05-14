@@ -24,57 +24,56 @@ public class Grid {
         this.width = values[0].length;
     }
 
-    public List<List<Integer>> getAdjacentSequences(int x, int y, int numberOfCells) {
-        List<List<Integer>> result = new ArrayList<>();
-        List<Integer> rightSequence = this.getRightSequence(x, y, numberOfCells);
-        if(rightSequence != null){
-            result.add(rightSequence);
+    //todo check if we can merge the next methods into 1
+    public List<Integer> getRightSequence(int x, int y, int numberOfCells) {
+        int endIndex = x + numberOfCells < this.width ? x + numberOfCells : this.width;
+        List<Integer> result = new ArrayList<>();
+        for (int i = x; i < endIndex; i++) {
+            result.add(values[y][i]);
         }
-        List<Integer> downSequence = this.getDownSequence(x, y, numberOfCells);
-        if(downSequence != null){
-            result.add(downSequence);
-        }
-        
         return result;
     }
 
-//    private List<Integer> getLeftSequence(int x, int y, int numberOfCells) {
-//        int startIndex = x - (numberOfCells - 1);
-//        if (startIndex < 0) {
-//            return null;
-//        } else {
-//            List<Integer> result = new ArrayList<>();
-//            for (int i = startIndex; i <= x; i++) {
-//                result.add(values[y][i]);
-//            }
-//            return result;
-//        }
-//    }
-
-    private List<Integer> getRightSequence(int x, int y, int numberOfCells) {
-        int endIndex = x + (numberOfCells );
-        if (endIndex >= this.width) {
-            return null;
-        } else {
-            List<Integer> result = new ArrayList<>();
-            for (int i = x; i <= endIndex; i++) {
-                result.add(values[y][i]);
-            }
-            return result;
+    public List<Integer> getDownSequence(int x, int y, int numberOfCells) {
+        int endIndex = y + numberOfCells < this.height ? y + numberOfCells : this.height;
+        List<Integer> result = new ArrayList<>();
+        for (int i = y; i < endIndex; i++) {
+            result.add(values[i][x]);
         }
+        return result;
+    }
+
+    public List<Integer> getRightDownSequence(int x, int y, int numberOfCells) {
+        int endXIndex = x + numberOfCells < this.width ? x + numberOfCells : this.width;
+        int endYIndex = y + numberOfCells < this.height ? y + numberOfCells : this.height;
+        List<Integer> result = new ArrayList<>();
+        int yIndex = y;
+        for (int xIndex = x; (xIndex < endXIndex && yIndex < endYIndex); xIndex++) {
+            result.add(values[yIndex][xIndex]);
+            yIndex++;
+        }
+        return result;
+    }
+
+    public List<Integer> getLeftDownSequence(int x, int y, int numberOfCells) {
+        int endXIndex = x - numberOfCells > 0 ? x - numberOfCells : -1;
+        int endYIndex = y + numberOfCells < this.height ? y + numberOfCells : this.height;
+        List<Integer> result = new ArrayList<>();
+        int yIndex = y;
+        for (int xIndex = x; (xIndex > endXIndex && yIndex < endYIndex); xIndex--) {
+            result.add(values[yIndex][xIndex]);
+            yIndex++;
+        }
+        return result;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
     }
     
-    private List<Integer> getDownSequence(int x, int y, int numberOfCells) {
-        int endIndex = y + (numberOfCells );
-        if (endIndex >= this.height) {
-            return null;
-        } else {
-            List<Integer> result = new ArrayList<>();
-            for (int i = y; i <= endIndex; i++) {
-                result.add(values[i][x]);
-            }
-            return result;
-        }
-    }
-
+    
 }

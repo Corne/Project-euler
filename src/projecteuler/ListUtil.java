@@ -23,4 +23,8 @@ public class ListUtil {
         return result;
     }
     
+    public static int getProduct(List<Integer> sequence){
+        return sequence.stream().reduce(1, (n1, n2) -> n1 * n2); 
+    }
+    
 }

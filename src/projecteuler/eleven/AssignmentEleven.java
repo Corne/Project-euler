@@ -5,6 +5,8 @@
  */
 package projecteuler.eleven;
 
+import projecteuler.ListUtil;
+
 /**
  *
  * In the 20×20 grid below, four numbers along a diagonal line have been marked
@@ -42,7 +44,19 @@ package projecteuler.eleven;
 public class AssignmentEleven {
 
     public long getGreatesProductOfAdjacentNumbers(Grid grid, int adjacentValues){
-        return 0;
+        int width = grid.getWidth();
+        int height = grid.getHeight();
+        
+        long result = 0;
+        for(int y=0; y<height; y++){
+            for(int x=0; x<width; x++){
+                result = Math.max(ListUtil.getProduct(grid.getRightSequence(x, y, adjacentValues)), result);
+                result = Math.max(ListUtil.getProduct(grid.getDownSequence(x, y, adjacentValues)), result);
+                result = Math.max(ListUtil.getProduct(grid.getRightDownSequence(x, y, adjacentValues)), result);
+                result = Math.max(ListUtil.getProduct(grid.getLeftDownSequence(x, y, adjacentValues)), result);
+            }
+        }
+        return result;
     }
     
 }
