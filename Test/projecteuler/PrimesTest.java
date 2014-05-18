@@ -46,10 +46,10 @@ public class PrimesTest {
     @Test
     public void testGetPrimesBelowValue() {
         //2 + 3 + 5 + 7
-        long input = 10;
-        List<Long> expected =  Arrays.asList(2L, 3L, 5L, 7L);
+        int input = 10;
+        List<Integer> expected =  Arrays.asList(2, 3, 5, 7);
         Primes primes = new Primes();
-        List<Long> result = primes.getPrimesBelowValue(input);
+        List<Integer> result = primes.getPrimesBelowValue(input);
         
         assertEquals(expected, result);
     }

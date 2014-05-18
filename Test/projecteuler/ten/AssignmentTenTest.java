@@ -24,10 +24,10 @@ public class AssignmentTenTest {
     @Test
     public void testGetSumOfPrimesBelowValue() {
         System.out.println("getSumOfPrimesBelowValue");
-        long value = 10L; // 2million cost +/- 350seconds to sovle
+        int value = 10; // 2million cost +/- 350seconds to sovle
         AssignmentTen instance = new AssignmentTen();
-        long expResult = 17L;
-        long result = instance.getSumOfPrimesBelowValue(value);
+        int expResult = 17;
+        int result = instance.getSumOfPrimesBelowValue(value);
         assertEquals(expResult, result);
     }
     

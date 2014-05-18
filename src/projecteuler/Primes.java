@@ -6,9 +6,11 @@
 package projecteuler;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -16,16 +18,59 @@ import java.util.TreeSet;
  */
 public class Primes {
 
+//            // initially assume all integers are prime
+//        boolean[] isPrime = new boolean[N + 1];
+//        for (int i = 2; i <= N; i++) {
+//            isPrime[i] = true;
+//        }
+//
+//        // mark non-primes <= N using Sieve of Eratosthenes
+//        for (int i = 2; i*i <= N; i++) {
+//
+//            // if i is prime, then mark multiples of i as nonprime
+//            // suffices to consider mutiples i, i+1, ..., N/i
+//            if (isPrime[i]) {
+//                for (int j = i; i*j <= N; j++) {
+//                    isPrime[i*j] = false;
+//                }
+//            }
+//        }
+//
+//        // count primes
+//        int primes = 0;
+//        for (int i = 2; i <= N; i++) {
+//            if (isPrime[i]) primes++;
+//        }
     //using list so we can use get
-    private final List<Long> primes;
     
+    private static final int MAX_ARRAY_SIZE = /*Integer.MAX_VALUE - 5*/ 1000000;
+    private final Boolean[] bPrimes;
+    private final List<Prime> primes;
+
     public Primes() {
-        this.primes = new ArrayList<>();
-        this.primes.add(2L);
+        primes = new ArrayList<>();
+               
+        this.bPrimes = new Boolean[MAX_ARRAY_SIZE];
+        Arrays.fill(bPrimes, true);
+        bPrimes[0] = false;
+        bPrimes[1] = false;
+        
+        for (int i = 2; i * i < MAX_ARRAY_SIZE; i++) {
+            if (bPrimes[i]) {
+                for (int j = i; i * j < MAX_ARRAY_SIZE; j++) {
+                    bPrimes[i * j] = false;
+                }
+            }
+        }
+        
+        for(int i=0; i<bPrimes.length; i++){
+            primes.add(new Prime(i, bPrimes[i]));
+        }
     }
-    
+
     /**
      * TODO clean, adding to set is kinda ugly atm.
+     *
      * @param value
      * @return
      */
@@ -43,29 +88,14 @@ public class Primes {
     }
 
     public long getPrime(int index) {
-        if(index < this.primes.size() -1){
-            return primes.get(index);
-        } else {
-            primes.add(findNextPrime());
-            return getPrime(index);
-        }
+        return primes.stream().filter(p -> p.isIsPrime())
+                .collect(Collectors.toCollection(ArrayList::new)).get(index).getValue();
     }
-    //todo check if we can improve performance
-    public List<Long> getPrimesBelowValue(long value){
-        while(this.primes.get(this.primes.size() -1) < value){
-            primes.add(findNextPrime());
-        }
-        return primes.subList(0, primes.size() - 1); //last one is over value
+
+    public List<Integer> getPrimesBelowValue(int value) {
+        return primes.subList(0, value).stream().filter(p -> p.isIsPrime() && p.getValue() < value)
+                .map(p -> p.getValue())
+                .collect(Collectors.toCollection(ArrayList::new));
     }
-    
-    private long findNextPrime() {
-        long startIndex = primes.get(primes.size() - 1);
-        for (long i = startIndex; i < Long.MAX_VALUE; i++) {
-            final long currentValue = i;
-            if(primes.stream().noneMatch(p -> currentValue % p == 0)){
-                return currentValue;
-            }
-        }
-        return 0;
-    }
+
 }

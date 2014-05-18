@@ -18,9 +18,9 @@ import projecteuler.Primes;
 public class AssignmentTen {
 
     //TODO check if we can improve perfomance, 2million check took around 350sec
-    public long getSumOfPrimesBelowValue(long value) {
+    public int getSumOfPrimesBelowValue(int value) {
         Primes primes = new Primes();
-        List<Long> primesBelowValue = primes.getPrimesBelowValue(value);
-        return primesBelowValue.stream().mapToLong(v -> v).sum();
+        List<Integer> primesBelowValue = primes.getPrimesBelowValue(value);
+        return primesBelowValue.stream().mapToInt(v -> v).sum();
     }
 }
